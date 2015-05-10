@@ -1,0 +1,195 @@
+// ==========================================================================
+// Components / Buttons
+// ==========================================================================
+
+%btn {
+  @include inline-block();
+  text-align: center;
+  cursor: pointer;
+  -webkit-appearance: none;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 0;
+  margin: 0;
+  line-height: 1em;
+  background: none;
+  // transition: all .2s ease-out;
+}
+
+@mixin btn($rounded : false) {
+  @extend %btn;
+  @if $rounded == true {
+      border-radius: 5px;
+  }
+}
+
+
+// ========== Hamburger toggle button ===========
+
+.btn-toggle {
+  transition: all .3s;
+  opacity: 1;
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  position: absolute;
+  padding: 39px 39px; //tofix 
+  user-select: none;
+  box-sizing: content-box;
+  cursor: pointer;
+ 
+  &:hover {
+    //opacity: .9;
+  }
+  div {
+    width: 100%;
+    height: 2px;
+    background: black;
+    margin-bottom: 3px;
+    transition: all .3s ;
+    backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+  }
+  .one, .two {
+    transform: rotate3d(0, 0, 1, 0deg) translate3d(0, 0, 0);
+  }
+  &.on{
+    .one{
+      transform: rotate3d(0, 0, 1, 45deg) ;
+      transform-origin: 0% 0%;
+    }
+    .two{
+      opacity: 0;
+    }
+    .three{
+      transform: rotate3d(0, 0, 1, -45deg) ;
+      transform-origin: 0% 100%;
+    }
+  }
+}
+
+
+// ========== Main buttons ===========
+
+.btn-primary {
+  @include btn();
+  padding: .6em 1.5em;
+  color: $black;
+  @include rem(font-size, 16px);
+  // @include rem(line-height, 36px);
+  font-weight: 900;
+  background-color: $white;
+  letter-spacing: .08em;
+  border: 1px solid $white;
+}
+
+.btn-secondary {
+  @include btn();
+  @include rem(font-size, 12px);
+  // @include rem(line-height, 24px);
+  padding: .5em .8em;
+  font-weight: bold;
+  border: 1px solid ;
+  &:hover {
+    // background-color: $black;
+    // color: $white;
+  }
+}
+
+.btn--wide{
+  width: 100%;
+}
+
+// ========== Labels (boxed) ===========
+
+%label{
+  @extend %btn ;
+  border: 1px solid;
+  padding: 0 .5em;
+  letter-spacing: .2em;
+  line-height: 1.5em;
+  cursor: default;
+}
+
+.btn-label{
+  @include btn();
+  @extend .btn-secondary;
+  @include rem(line-height, 24px);
+  padding: 0 .5em;
+  font-weight: normal;
+  letter-spacing: .2em;
+}
+
+// ========== Responsive buttons ===========
+
+@include mq($until: mobile){
+  .btn-m{
+    width: 100%;
+    margin-bottom: 1em;
+  }
+}
+
+// ========== Share button ===========
+
+.btn-share-wrapper {
+  @extend .btn-secondary;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+
+  .btn-share--label, .btn-share-items, .btn-share--item {
+    transform: none ; // default state
+    transition: transform .2s ease-out , opacity .2s ;
+  }
+
+  .btn-share--label {
+    @include inline-block();
+    text-transform: uppercase;
+    width: 100%;
+    padding: .8em;
+  } 
+
+  // list
+  .btn-share-items {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    
+    list-style: none;
+    font-size: 0;
+    text-align: center;
+
+  }
+
+  .btn-share--item {
+    @include inline-block();
+    @include rem(font-size, 18px);
+    @include rem(line-height, 36px);
+    width: 25% ;
+    opacity: 1;
+
+    a {
+      @include inline-block();
+      width: 100%;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    &:active, &:hover {
+      background-color: $white ;
+      color: $black ;
+    }
+  }
+  
+  &:hover, &:active, &:focus {
+    .btn-share--label, .btn-share-items{
+      transform: translate3d(0, -100%, 0);
+    }
+  }
+
+}

@@ -1,0 +1,111 @@
+// ==========================================================================
+// $FONT-FACE
+// ==========================================================================
+
+@if variable-exists(google-fonts-url) {
+  @import url($google-fonts-url);
+}
+
+/* @font-face {
+  font-family: 'avg';
+  src:url('../fonts/ITCAvantGardeStd-Bk_gdi.eot?#iefixnueuf') format('embedded-opentype'),
+    url('../fonts/ITCAvantGardeStd-Bk_gdi.woff?nueuf') format('woff'),
+    url('../fonts/ITCAvantGardeStd-Bk_gdi.ttf?nueuf') format('truetype'),
+    url('../fonts/ITCAvantGardeStd-Bk_gdi.svg?nueuf#colors-icons') format('svg');
+
+  font-weight: normal;
+  font-style: normal;
+} */
+
+
+html {
+  font-size: 62.5%; /* Sets up the Base 10 stuff */
+  font-family: $sans-serif;
+  letter-spacing: .02em; // sets global letter spacing with avant guarde
+}
+
+body { 
+  font-size: 1.4rem; /* =14px */
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  } 
+
+/* ===========================
+            Headings
+ =========================== */
+
+h1, h2, h3, h4, h5, h6{
+  font-weight: bold;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
+  text-transform: uppercase;
+  margin: 0 auto .5em;
+}
+
+// h1 : page title
+h1, .h1 { 
+  @include rem(font-size, 32px);
+  @include rem(line-height, 38px);
+  letter-spacing: .15em;
+  font-weight: 900;
+  &.product-name{
+    @include rem(font-size, 42px);
+    @include rem(line-height, 48px);
+    text-transform: capitalize;
+    letter-spacing: .02em;
+  }
+}
+
+// h2 : Découvrez aussi...
+h2, .h2 {
+  @include rem(font-size, 32px);
+  @include rem(line-height, 38px);
+  text-transform: none;
+}
+
+// h3 :  Sous titre, chapeau
+h3, .h3 {
+  @include rem(font-size, 18px);
+  @include rem(line-height, 24px);
+  letter-spacing: .15em; 
+}
+
+// h4 : sidenav
+h4, .h4 {
+  @include rem(font-size, 14px);
+  @include rem(line-height, 20px);
+  font-weight: 900;
+}
+
+h5, h6, .h5, .h6 {
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+/* ===========================
+            Links
+ =========================== */
+
+a {
+  // color: $color-link;
+  color: inherit;
+  opacity: 1;
+  transition: opacity .2s ease-out, transform .2s ease-out;
+
+  // &:not([class*="col-"]):hover{
+  &:hover{
+    opacity: .7;
+  }
+}
+
+/* ===========================
+            Paragraphs
+ =========================== */
+
+p {
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+

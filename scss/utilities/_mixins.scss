@@ -39,7 +39,7 @@
 }
 
 /**
- * Media Queries
+ * Media Queries // EDIT : we're using the Guardian mq mixin (see below)
  * Allows you to use inline media queries.
  * @link http://jakearchibald.github.com/sass-ie/
  * @param {String} $breakpoint - breakpoint
@@ -49,18 +49,55 @@
  * .foobar { @include mq(20em) { ... } }
  */
 
-@mixin mq($breakpoint, $query: 'min-width', $type: 'screen') { // breakpoint can be a variable
-  // if media queries are not supported
-  @if $fix-mqs {
-    @if $fix-mqs >= $breakpoint { // ...and if the fixed breakpoint is greater than query...
-      @content; // ...output the content the user gave us.
-    }
-  }
-  // Otherwise, output it using a regular media query
-  @else {
-    @media #{$type} and (#{$query}: #{$breakpoint}) { @content; }
-  }
- }
+// @mixin mq($breakpoint, $query: 'min-width', $type: 'screen') { // breakpoint can be a variable
+//   // if media queries are not supported
+//   @if $fix-mqs {
+//     @if $fix-mqs >= $breakpoint { // ...and if the fixed breakpoint is greater than query...
+//       @content; // ...output the content the user gave us.
+//     }
+//   }
+//   // Otherwise, output it using a regular media query
+//   @else {
+//     @media #{$type} and (#{$query}: #{$breakpoint}) { @content; }
+//   }
+//  }
+
+/* 
+ * Media Queries
+ * @link http://sass-mq.github.io/sass-mq/
+ */
+
+// To enable support for browsers that do not support @media queries,
+// (IE <= 8, Firefox <= 3, Opera <= 9) set $mq-responsive to false
+// Create a separate stylesheet served exclusively to these browsers,
+// meaning @media queries will be rasterized, relying on the cascade itself
+$mq-responsive: true;
+
+// Name your breakpoints in a way that creates a ubiquitous language
+// across team members. It will improve communication between
+// stakeholders, designers, developers, and testers.
+$mq-breakpoints: (
+    mobile:  480px,
+    tablet:  768px,
+    desktop: 1024px,
+    wide:    1300px,
+
+    // Tweakpoints
+    desktopAd: 810px,
+    mobileLandscape: 480px
+);
+
+// Define the breakpoint from the $mq-breakpoints list that should
+// be used as the target width when outputting a static stylesheet
+// (i.e. when $mq-responsive is set to 'false').
+$mq-static-breakpoint: desktop;
+
+// If you want to display the currently active breakpoint in the top
+// right corner of your site during development, add the breakpoints
+// to this list, ordered by width, e.g. (mobile, tablet, desktop).
+//$mq-show-breakpoints: (mobile, mobileLandscape, tablet, desktop, wide);
+
+@import 'lib/mq';
 
 /**
  * IE Specific Styles
@@ -156,7 +193,7 @@
  * .foobar { @include inline-block() { ... } }
  */
 
-@mixin inline-block($alignment: baseline) {
+@mixin inline-block($alignment: middle) {
   display: inline-block;
   @if $alignment and $alignment != none {
     vertical-align: $alignment;
@@ -202,4 +239,50 @@
 @mixin rgba-bg($color, $percent) {
   background: $color;
   background: rgba($color, $percent);
+}
+
+// rem mixin test
+
+// Baseline, measured in pixels
+// The value should be the same as the font-size value for the html element
+// If the html element's font-size is set to 62.5% (of the browser's default font-size of 16px),
+// then the variable below would be 10px.
+$baseline-px: 10px;
+
+@mixin rem($property, $px-values) {
+  // Convert the baseline into rems
+  $baseline-rem: $baseline-px / 1rem * 1;
+  // Print the first line in pixel values -- edit : if old ie is true
+  @if $old-ie == true {
+    #{$property}: $px-values;
+  }
+  // If there is only one (numeric) value, return the property/value line for it.
+  @if type-of($px-values) == "number" {
+    #{$property}: $px-values / $baseline-rem; }
+  @else {
+    // Create an empty list that we can dump values into
+    $rem-values: ();
+    @each $value in $px-values {
+      // If the value is zero or not a number, return it
+      @if $value == 0 or type-of( $value ) != "number" {
+        $rem-values: append($rem-values, $value); }
+      @else {
+        $rem-values: append($rem-values, $value / $baseline-rem); } }
+    // Return the property and its list of converted values
+    #{$property}: $rem-values; 
+  } 
+}
+
+// = Placeholder
+// -----------------------------
+@mixin placeholder($color : $clr-mixin-placeholder) {
+  &::-webkit-input-placeholder {
+    color: $color;
+  }
+  &:-moz-placeholder {
+    color: $color;
+  }
+  &:-ms-input-placeholder {
+    color: $color;
+  }
 }

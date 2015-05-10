@@ -36,7 +36,7 @@ module.exports = function(grunt) {
           style: 'expanded'
         },
         files: {                                  // Dictionary of files
-          'css/styles.css': 'scss/styles.scss',   // 'destination': 'source'
+          'css/styles.css': 'scss/main.scss',     // 'destination': 'source'
           'css/ie.css': 'scss/ie.scss',
           'css/themes/*.css':'scss/themes/*.scss'
         }
@@ -46,7 +46,7 @@ module.exports = function(grunt) {
           style: 'compressed'
         },
         files: {                                  // Dictionary of files
-          'css/styles.css': 'scss/styles.scss',   // 'destination': 'source'
+          'css/styles.css': 'scss/main.scss',     // 'destination': 'source'
           'css/ie.css': 'scss/ie.scss',
           'css/themes/*.css':'scss/themes/*.scss'
         }

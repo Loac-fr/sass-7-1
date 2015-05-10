@@ -1,10 +1,13 @@
+
+// http://thesassway.com/intermediate/understanding-placeholder-selectors
+
 // ==========================================================================
 // Helper Classes
 // ==========================================================================
 
 %all-caps {
   font-weight: 600;
-  // letter-spacing: .06em;
+  letter-spacing: .06em;
   text-transform: uppercase;
 }
 
@@ -30,6 +33,12 @@
     width: 0;
     height: 150%;
   }
+}
+
+.cover{
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 %no-bullets {
@@ -87,4 +96,32 @@
 
 %invisible {
   visibility: hidden;
+}
+
+// ================== Color helpers =============
+
+.grey  { color: $grey; }
+.black { color: $black; }
+.white { color: $white; }
+.green { color: $green; }
+.red   { color: $red; }
+
+// backgrounds
+
+.bg-white   { background-color: $white; }
+.bg-grey    { background-color: $grey-light; }
+.bg-black   { background-color: $black; }
+
+// ================== Text helpers =============
+
+.align-right  { text-align: right; }
+.align-left   { text-align: left; }
+.align-center { text-align: center; }
+
+// ================== Position helpers =============
+
+.vA {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
